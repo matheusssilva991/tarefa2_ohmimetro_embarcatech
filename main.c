@@ -12,12 +12,15 @@
 #include "lib/ssd1306.h"
 #include "lib/font.h"
 #include "lib/button.h"
+#include "lib/ws2812b.h"
 
 #define I2C_PORT i2c1
 #define I2C_SDA 14
 #define I2C_SCL 15
 #define DISPLAY_ADDRESS 0x3C
 #define ADC_PIN 28 // GPIO para o voltímetro
+#define LED_MATRIX_PIN 7
+#define LED_MATRIX_SIZE 5
 
 void gpio_irq_handler(uint gpio, uint32_t events);
 void init_display(ssd1306_t *ssd);
@@ -55,8 +58,12 @@ int main()
 
     init_btns(); // Inicializa os botões
     adc_init();
-    init_display(&ssd);     // Inicializa o display
-    adc_gpio_init(ADC_PIN); // GPIO 28 como entrada analógica
+    init_display(&ssd);           // Inicializa o display
+    adc_gpio_init(ADC_PIN);       // GPIO 28 como entrada analógica
+    ws2812b_init(LED_MATRIX_PIN); // Inicializa a matriz de LEDs
+
+    ws2812b_clear();
+    ws2812b_write(); // Atualiza a matriz de LEDs
 
     // Define a interrupt handler para o botão B
     gpio_set_irq_enabled_with_callback(BUTTON_B_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
@@ -245,30 +252,42 @@ float find_nearest_e24(float value)
 {
     // Normaliza o valor para estar entre 1.0 e 10.0
     int exponent = 0;
-    float original_value = value;
+    float normalized_value = value;
 
-    while (value >= 1.0)
+    // Primeiro, ajusta para menor que 10
+    while (normalized_value >= 10.0)
     {
-        value /= 10.0;
+        normalized_value /= 10.0;
         exponent++;
     }
 
+    printf("Valor normalizado inicial: %.2f\n", normalized_value); // Debug
+
+    // Se o valor normalizado for maior que o maior valor E24 (9.1),
+    // ajusta para a próxima década
+    if (normalized_value > E24_VALUES[E24_SIZE - 1])
+    {
+        normalized_value /= 10.0;
+        exponent++;
+    }
+
+    printf("Valor normalizado final: %.2f\n", normalized_value); // Debug
+    printf("Expoente: %d\n", exponent);                          // Debug
+
     // Encontra o valor mais próximo na série E24
-    float nearest = E24_VALUES[0] * pow(10, exponent);
-    float min_diff = fabs(original_value - nearest);
+    float nearest = E24_VALUES[0];
+    float min_diff = fabs(normalized_value - E24_VALUES[0]);
 
     for (int i = 1; i < E24_SIZE; i++)
     {
-        float current_e24_value = E24_VALUES[i] * pow(10, exponent);
-
-        float diff = fabs(original_value - current_e24_value);
+        float diff = fabs(normalized_value - E24_VALUES[i]);
         if (diff < min_diff)
         {
             min_diff = diff;
-            nearest = current_e24_value;
+            nearest = E24_VALUES[i];
         }
     }
 
     // Retorna o valor ajustado com o expoente
-    return nearest;
+    return nearest * pow(10, exponent);
 }
