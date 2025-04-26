@@ -70,14 +70,14 @@ int main()
         printf("Valor do resistor: %.2f\n", r_x); // Debug
 
         // Converte o valor do resistor para a série E24
-        r_x_e24 = find_nearest_e24(r_x); // Encontra o valor mais próximo na série E24
+        r_x_e24 = find_nearest_e24(r_x);                    // Encontra o valor mais próximo na série E24
         printf("Valor do resistor E24: %.2f\n\n", r_x_e24); // Debug
 
         // Converte o valor do resistor em string
         sprintf(adc_reading_str, "%1.0f", adc_average);                                   // Converte o inteiro em string
         sprintf(resistance_value_str, "%1.0f", r_x_e24);                                  // Converte o float em string
         normalized_resistance = get_normalized_resistance(r_x_e24, ohm_multiplier_color); // Converte o valor do resistor em string
-        resistance_rounded = (int)round(normalized_resistance); // Arredonda para o inteiro mais próximo
+        resistance_rounded = (int)round(normalized_resistance);                           // Arredonda para o inteiro mais próximo
 
         // Calcula o valor da banda 1 e 2
         band_number = resistance_rounded / 10;   // Valor da banda 1

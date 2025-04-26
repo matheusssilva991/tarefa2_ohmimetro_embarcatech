@@ -31,7 +31,10 @@ add_executable(${PROJECT_NAME}
         main.c  # Código principal
         lib/ssd1306.c # Biblioteca para o display OLED
         lib/button.c
+        lib/ws2812b.c
         )
+
+pico_generate_pio_header(${PROJECT_NAME}  ${CMAKE_CURRENT_LIST_DIR}/led_matrix.pio)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
         PICO_PRINTF_SUPPORT_FLOAT=1
@@ -42,6 +45,7 @@ target_link_libraries(${PROJECT_NAME}
         pico_stdlib
         hardware_i2c
         hardware_adc
+        hardware_pio
         )
 
 pico_enable_stdio_usb(${PROJECT_NAME} 1)
