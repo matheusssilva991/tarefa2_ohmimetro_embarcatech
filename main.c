@@ -95,8 +95,9 @@ int main()
         get_band_color(band_number_2, band_color_2); // Converte o número da banda em string
 
         ws2812b_clear();
-        
-
+        ws2812b_fill_column(0, colors_matrix[string_to_color(ohm_multiplier_color)]); // Preenche a coluna 2 com a cor verde
+        ws2812b_fill_column(2, colors_matrix[string_to_color(band_color_2)]); // Preenche a coluna 1 com a cor da banda 2
+        ws2812b_fill_column(4, colors_matrix[string_to_color(band_color)]); // Preenche a coluna 0 com a cor da banda 1
         ws2812b_write(); // Atualiza a matriz de LEDs
 
         //  Atualiza o conteúdo do display com animações

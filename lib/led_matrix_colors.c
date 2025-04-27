@@ -3,11 +3,11 @@
 
 // Definição da matriz de cores
 const int colors_matrix[10][3] = {
-    {8, 12, 0}, // Preto // Correto
-    {12, 8, 0}, // Marrom // Correto
+    {0, 0, 0}, // Preto // Correto
+    {30, 8, 0}, // Marrom // Correto
     {8, 0, 0}, // Vermelho // Correto
-    {4, 8, 0}, // Laranja // Correto
-    {8, 8, 0}, // Amarelo // Correto
+    {12, 8, 0}, // Laranja // Correto
+    {4, 8, 0}, // Amarelo // Correto
     {0, 8, 0}, // Verde // Correto
     {0, 0, 8}, // Azul // Correto
     {8, 0, 8}, // Violeta // Correto

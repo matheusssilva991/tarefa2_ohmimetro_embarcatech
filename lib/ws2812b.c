@@ -1,6 +1,8 @@
 #include "ws2812b.h"
 #include "led_matrix.pio.h"
 
+#define LED_MATRIX_SIZE 5
+
 ws2812b_LED_t led_matrix[LED_MATRIX_COUNT];
 PIO led_matrix_pio;
 uint sm;
@@ -97,4 +99,24 @@ void ws2812b_draw_point(uint8_t point_index, const int color[3]) {
 
     // Atualiza a matriz de LEDs.
     ws2812b_write();
+}
+
+void ws2812b_fill_column(uint8_t column, const int color[3]) {
+    if (column >= LED_MATRIX_SIZE) return;
+
+    // Para uma matriz 5x5, mapeamento das posições na vertical:
+    for (int row = 0; row < LED_MATRIX_SIZE; row++) {
+        int led_index;
+
+        // Mapeamento correto para padrão snake
+        if (row % 2 == 0) {
+            // Linha par: esquerda para direita
+            led_index = row * LED_MATRIX_SIZE + column;
+        } else {
+            // Linha ímpar: direita para esquerda
+            led_index = row * LED_MATRIX_SIZE + (LED_MATRIX_SIZE - 1 - column);
+        }
+
+        ws2812b_set_led(led_index, color[0], color[1], color[2]);
+    }
 }

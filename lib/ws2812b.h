@@ -26,5 +26,6 @@ void ws2812b_clear();
 void ws2812b_write();
 void ws2812b_draw_number(uint8_t index);
 void ws2812b_draw_point(uint8_t number_index, const int color[3]);
+void ws2812b_fill_column(uint8_t column, const int color[3]);
 
 #endif // WS2812B_H
