@@ -59,3 +59,8 @@ make
 - A funcionalidade do botão BOOTSEL deve ser removida na versão final de produção
 - A precisão da medição depende da precisão do resistor de referência
 - Suporta medições de resistência na faixa de 100Ω a 1MΩ
+
+## Link da demonstração
+
+[![Watch the video](https://drive.google.com/file/d/12sZMWLYy5qMlEVPPjDJAIeCRUz90qZ0r/view?usp=drive_link)](https://drive.google.com/file/d/12sZMWLYy5qMlEVPPjDJAIeCRUz90qZ0r/view?usp=drive_link)
+```
