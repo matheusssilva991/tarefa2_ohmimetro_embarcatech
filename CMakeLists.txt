@@ -32,6 +32,7 @@ add_executable(${PROJECT_NAME}
         lib/ssd1306.c # Biblioteca para o display OLED
         lib/button.c
         lib/ws2812b.c
+        lib/led_matrix_colors.c
         )
 
 pico_generate_pio_header(${PROJECT_NAME}  ${CMAKE_CURRENT_LIST_DIR}/led_matrix.pio)

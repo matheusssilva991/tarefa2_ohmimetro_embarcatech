@@ -94,6 +94,11 @@ int main()
         get_band_color(band_number, band_color);     // Converte o número da banda em string
         get_band_color(band_number_2, band_color_2); // Converte o número da banda em string
 
+        ws2812b_clear();
+        
+
+        ws2812b_write(); // Atualiza a matriz de LEDs
+
         //  Atualiza o conteúdo do display com animações
         ssd1306_fill(&ssd, !display_color);                               // Limpa o display
         ssd1306_rect(&ssd, 3, 3, 122, 60, display_color, !display_color); // Desenha um retângulo

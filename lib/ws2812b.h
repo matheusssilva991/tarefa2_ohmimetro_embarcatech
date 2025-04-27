@@ -6,6 +6,7 @@
 #include "hardware/pio.h"
 #include "pico/stdlib.h"
 #include "led_matrix_numbers.h"
+#include "led_matrix_colors.h"
 
 // Tipos de dados.
 struct pixel_t
@@ -24,5 +25,6 @@ void ws2812b_set_led(const uint index, const uint8_t r, const uint8_t g, const u
 void ws2812b_clear();
 void ws2812b_write();
 void ws2812b_draw_number(uint8_t index);
+void ws2812b_draw_point(uint8_t number_index, const int color[3]);
 
 #endif // WS2812B_H

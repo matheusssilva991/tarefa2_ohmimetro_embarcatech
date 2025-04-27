@@ -38,6 +38,7 @@
     "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
     "files.associations": {
         "i2c.h": "c",
-        "adc.h": "c"
+        "adc.h": "c",
+        "led_matrix_colors.h": "c"
     }
 }
